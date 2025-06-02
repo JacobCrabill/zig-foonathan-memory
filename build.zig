@@ -18,12 +18,10 @@ pub fn build(b: *std.Build) !void {
             .optimize = optimize,
             .link_libc = true,
             .link_libcpp = true,
+            .pic = true,
         }),
         .linkage = linkage,
     });
-
-    // const native_endian = @import("builtin").target.cpu.arch.endian();
-    // const is_bigendian: u8 = if (native_endian == .big) 1 else 0;
 
     const config_h = b.addConfigHeader(.{
         .style = .{ .cmake = upstream.path("src/config.hpp.in") },
@@ -56,7 +54,6 @@ pub fn build(b: *std.Build) !void {
             "detail/assert.cpp",
             "detail/free_list.cpp",
             "detail/free_list_array.cpp",
-            "detail/free_list_utils.hpp",
             "detail/small_free_list.cpp",
             "debugging.cpp",
             "error.cpp",
