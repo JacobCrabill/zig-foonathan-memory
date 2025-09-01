@@ -69,7 +69,16 @@ pub fn build(b: *std.Build) !void {
             "temporary_allocator.cpp",
             "virtual_memory.cpp",
         },
-        .flags = &.{ "--std=c++17", "-Wall", "-Wextra", "-Werror", "-pedantic", "-Wconversion", "-Wsign-conversion" },
+        .flags = &.{
+            "--std=c++17",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-pedantic",
+            "-Wconversion",
+            "-Wsign-conversion",
+            "-Wno-deprecated", // warnings on 'operator"" _KB' and friends (extra whitespace)
+        },
     });
     foo_mem.installHeadersDirectory(upstream.path("include"), "", .{ .include_extensions = &.{ ".h", ".hpp" } });
 
